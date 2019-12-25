@@ -1,12 +1,18 @@
 import React from 'react';
 import './App.css';
-import Home from './pages/Home';
+import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
+import Admin from './pages/admin/admin';
+import WrappedLogin from './pages/login/login'
 
 function App() {
   return (
-    <div className="App">
-      <Home />
-    </div>
+    <Router>
+      <Switch>
+        <Route path='/admin' component={Admin} />
+        <Route path='/' component={WrappedLogin} />
+        <Route path='/login' component={WrappedLogin} />
+      </Switch>
+    </Router>
   );
 }
 
