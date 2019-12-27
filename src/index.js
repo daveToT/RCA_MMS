@@ -4,7 +4,7 @@ import './index.css';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
 import './api';
-
+import './api/mock'
 
 ReactDOM.render(<App />, document.getElementById('root'));
 

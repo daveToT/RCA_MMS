@@ -9,6 +9,7 @@ import Header from "../../components/header";
 import Home from '../admin-home/home';
 import Bug from "../admin-stats/Bug";
 import Report from "../admin-stats/report";
+import storageUtils from '../../utils/storageUtils'
 
 const { Content, Sider } = Layout;
 
@@ -19,6 +20,10 @@ function Admin(props) {
     // }
 
     const [collapsed, setCollapsed] = useState(false);
+
+    if (!storageUtils.getUser().username) {
+        return <Redirect to='/' />
+    }
 
     return (
         <Layout >

@@ -1,44 +1,47 @@
 import React from 'react';
-// import { Redirect } from 'react-router-dom'
+import { Redirect } from 'react-router-dom'
 import { Form, Icon, Input, Button, Checkbox, message } from 'antd';
 import logo from '../../assets/logo.png'
 import './login.less'
-// import { reqLogin } from '../../api'
-// import storageUtils from '../../utils/storageUtils'
-// import memoryUtils from '../../utils/memoryUtils'
+import { reqLogin } from '../../api'
+import storageUtils from '../../utils/storageUtils'
+import memoryUtils from '../../utils/memoryUtils'
 
 function Login(props) {
     // const user = memoryUtils.user;
     // if (user._id) {
     //     return <Redirect to='/' />
     // }
+    if (storageUtils.getUser().username) {
+        return <Redirect to='/admin' />
+    }
 
     const { getFieldDecorator } = props.form;
 
     const handleSubmit = (e) => {
         e.preventDefault()
 
-        message.success("登陆成功")
-        props.history.replace('/admin')
+        // message.success("登陆成功")
+        // props.history.replace('/admin')
 
-        // props.form.validateFields(async (err, values) => {
-        //     const { username, password } = values;
-        //     if (!err) {
-        //         const result = await reqLogin(username, password);
-        //         if (result.status === 0) {
-        //             const user = result.data
-        //             storageUtils.saveUser(user)
-        //             memoryUtils.user = user
+        props.form.validateFields(async (err, values) => {
+            const { username, password } = values;
+            if (!err) {
+                const result = await reqLogin(username, password);
+                if (result.code === 0) {
+                    const user = result.data
+                    storageUtils.saveUser(user)
+                    memoryUtils.user = user
 
-        //             props.history.replace('/admin')
-        //             message.success("登陆成功")
-        //         } else {
-        //             message.error(result.msg)
-        //         }
-        //     } else {
-        //         alert(`验证失败, username=${username}, password=${password}`)
-        //     }
-        // })
+                    props.history.replace('/admin')
+                    message.success("登陆成功")
+                } else {
+                    message.error(result.msg)
+                }
+            } else {
+                alert(`验证失败, username=${username}, password=${password}`)
+            }
+        })
     }
 
     function validatorPwd(rule, value, callback) {
@@ -47,7 +50,7 @@ function Login(props) {
             callback('必须输入密码')
         } else if (value.length < 4) {
             callback("密码长度不能小于4位")
-        } else if (value.length > 4) {
+        } else if (value.length > 12) {
             callback("密码长度不能大于12位")
         } else if (!/^[a-zA-Z0-9_]+$/.test(value)) {
             callback("密码必须是英文、数字或下划线组成")
