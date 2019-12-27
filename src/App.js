@@ -8,9 +8,8 @@ function App() {
   return (
     <Router>
       <Switch>
+        <Route path='/' exact component={WrappedLogin} />
         <Route path='/admin' component={Admin} />
-        <Route path='/' component={WrappedLogin} />
-        <Route path='/login' component={WrappedLogin} />
       </Switch>
     </Router>
   );

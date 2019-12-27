@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Layout } from "antd";
 import { Redirect, Switch, Route } from 'react-router-dom';
 
@@ -7,10 +7,8 @@ import LeftNav from "../../components/left-nav";
 import Header from "../../components/header";
 
 import Home from '../admin-home/home';
-import Product from '../admin-product/product';
-import Bar from '../admin-charts/bar';
-import Line from '../admin-charts/line';
-
+import Bug from "../admin-stats/Bug";
+import Report from "../admin-stats/report";
 
 const { Content, Sider } = Layout;
 
@@ -20,20 +18,22 @@ function Admin(props) {
     //     return <Redirect to='/login' />
     // }
 
+    const [collapsed, setCollapsed] = useState(false);
+
     return (
-        <Layout style={{ height: "100%" }}>
+        <Layout >
             <Header />
-            <Layout>
-                <Sider theme="light"><LeftNav /></Sider>
-                <Content style={{ backgroundColor: "red" }}>
+            <Layout style={{ backgroundColor: "white"}}>
+                <Sider theme="light" collapsible collapsed={collapsed} onCollapse={(collapsed) => setCollapsed(collapsed)}><LeftNav /></Sider>
+                <Content >
                     <Switch>
                         <Route path='/admin/home' component={Home} />
-                        <Route path='/admin/product' component={Product} />
-                        <Route path='/admin/charts/bar' component={Bar} />
-                        <Route path='/admin/charts/line' component={Line} />
+                        <Route path='/admin/bug' component={Bug} />
+                        <Route path='/admin/report' component={Report} />
                         <Redirect to='/admin/home' />
                     </Switch>
                 </Content>
+
             </Layout>
         </Layout>
 
