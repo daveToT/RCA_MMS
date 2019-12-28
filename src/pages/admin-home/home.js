@@ -30,6 +30,9 @@ class Home extends Component {
             dayPictureUrl, weather
         })
     }
+    changeShow = show => {
+        this.setState({ show })
+    }
     render() {
         const { currentTime, dayPictureUrl, weather } = this.state
         return (
@@ -42,6 +45,15 @@ class Home extends Component {
                     <span>苏州</span>
                     <img src={dayPictureUrl} alt='weather' />
                     <span>{weather}</span>
+                </div>
+
+                <div 
+                    style={{width: 300, height: 300, border: '1px solid #000'}}
+                    onMouseEnter={() => this.changeShow(true)}
+                    onMouseLeave={() => this.changeShow(false)}>
+                    {
+                        this.state.show && <div>show</div>
+                    }
                 </div>
             </div>
         );
