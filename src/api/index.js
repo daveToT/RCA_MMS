@@ -9,6 +9,7 @@ import { message } from 'antd';
 
 const BASEURL = ''
 
+// 请求登陆
 export const reqLogin = (username, password) => {
     return ajax({
         method: 'post',
@@ -21,7 +22,7 @@ export const reqLogin = (username, password) => {
     })
 }
 
-
+// 发送jsonp请求获取天气信息
 export const reqWeather = (city) => {
     return new Promise(
         (resolve, reject) => {
@@ -36,3 +37,20 @@ export const reqWeather = (city) => {
             })
         })
 }
+
+
+// 获取分类列表
+// export const reqCategories = () => ajax.get(BASEURL + '/manage/category/list')
+// export const reqCategories = () => ajax({
+//     method: 'GET', // get请求时，这个可以省略
+//     url: BASEURL + '/manage/category/list'
+// })
+export const reqCategories = () => ajax(BASEURL + '/manage/category/list')
+
+
+// 添加分类
+export const reqAddCategory = (categoryName) => ajax.post(BASEURL + '/manage/category/add', { categoryName })
+
+// 更新分类
+export const reqUpdateCategory = ({ categoryId, categoryName }) => ajax.post(BASEURL + '/manage/category/update',
+    { categoryId, categoryName })

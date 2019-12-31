@@ -7,8 +7,11 @@ import LeftNav from "../../components/left-nav";
 import Header from "../../components/header";
 
 import Home from '../admin-home/home';
-import Bug from "../admin-stats/Bug";
 import Report from "../admin-stats/report";
+import Goods from "../admin-goods/goods";
+import Bug from "../admin-stats/Bug";
+import Category from "../admin-goods/category";
+
 import storageUtils from '../../utils/storageUtils'
 
 const { Content, Sider } = Layout;
@@ -28,11 +31,13 @@ function Admin(props) {
     return (
         <Layout >
             <Header />
-            <Layout style={{ backgroundColor: "white"}}>
+            <Layout style={{ backgroundColor: "white" }}>
                 <Sider theme="light" collapsible collapsed={collapsed} onCollapse={(collapsed) => setCollapsed(collapsed)}><LeftNav /></Sider>
                 <Content >
                     <Switch>
                         <Route path='/admin/home' component={Home} />
+                        <Route path='/admin/category' component={Category} />
+                        <Route path='/admin/goods' component={Goods} />
                         <Route path='/admin/bug' component={Bug} />
                         <Route path='/admin/report' component={Report} />
                         <Redirect to='/admin/home' />

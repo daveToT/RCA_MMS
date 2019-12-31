@@ -13,6 +13,12 @@ class LeftNav extends Component {
             menuList: [
                 { title: "首页", key: '/admin/home', icon: 'home', round: '1' },
                 {
+                    title: "商品", key: '/goods', icon: 'container', round: '1',
+                    children: [
+                        { title: "种类管理", key: '/admin/category' },
+                        { title: "商品管理", key: '/admin/goods'}]
+                },
+                {
                     title: "统计", key: '/sum', icon: 'line-chart', round: '1',
                     children: [
                         { title: "问题统计", key: '/admin/bug' },
@@ -71,7 +77,6 @@ class LeftNav extends Component {
     }
 
     render() {
-        console.log('dsad')
         // const menuNodes = this.getMenuNodes(this.state.menuList);
         const selectedKey = this.props.location.pathname;
 
