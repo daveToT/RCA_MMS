@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import style from './index.module.css'
 import { tools } from './contants'
+import DraggableBox from '../../../components/draggable-box'
 
 class GenPageWithMobile extends Component {
     render() {
@@ -15,7 +16,11 @@ class GenPageWithMobile extends Component {
                         ))
                     }
                 </div>
-                <div className={style.mobile}></div>
+                <div className={style.mobile}>
+                    <DraggableBox>
+                        <div>编辑文字</div>
+                    </DraggableBox>
+                </div>
             </div>
         )
     }
