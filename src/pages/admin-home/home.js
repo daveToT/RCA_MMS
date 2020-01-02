@@ -46,15 +46,6 @@ class Home extends Component {
                     <img src={dayPictureUrl} alt='weather' />
                     <span>{weather}</span>
                 </div>
-
-                <div 
-                    style={{width: 300, height: 300, border: '1px solid #000'}}
-                    onMouseEnter={() => this.changeShow(true)}
-                    onMouseLeave={() => this.changeShow(false)}>
-                    {
-                        this.state.show && <div>show</div>
-                    }
-                </div>
             </div>
         );
     }
