@@ -23,6 +23,13 @@ class LeftNav extends Component {
                     children: [
                         { title: "问题统计", key: '/admin/bug' },
                         { title: "项目报告", key: '/admin/report' }]
+                },
+                {
+                    title: '生成页面', key: '/gen-page', icon: 'line-chart', round: '1',
+                    children: [
+                        { title: '手机端', key: '/gen-page/mobile' },
+                        { title: 'PC端', key: '/gen-page/pc' }
+                    ]
                 }
             ]
         }

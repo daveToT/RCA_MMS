@@ -11,6 +11,7 @@ import Report from "../admin-stats/report";
 import Goods from "../admin-goods/goods";
 import Bug from "../admin-stats/Bug";
 import Category from "../admin-goods/category";
+import GenPageWithMobile from '../gen-page/mobile'
 
 import storageUtils from '../../utils/storageUtils'
 
@@ -40,6 +41,7 @@ function Admin(props) {
                         <Route path='/admin/goods' component={Goods} />
                         <Route path='/admin/bug' component={Bug} />
                         <Route path='/admin/report' component={Report} />
+                        <Route path='/gen-page/mobile' component={GenPageWithMobile} />
                         <Redirect to='/admin/home' />
                     </Switch>
                 </Content>
