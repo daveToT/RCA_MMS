@@ -1,28 +1,16 @@
-/**
- * 接口-请求函数
- */
-
 import ajax from './ajax';
 import jsonp from 'jsonp';
-import { message } from 'antd';
-
 
 const BASEURL = ''
 
-// 请求登陆
-export const reqLogin = (username, password) => {
-    return ajax({
-        method: 'post',
-        url: BASEURL + '/login',
-        // data 为 json格式
-        data: {
-            username,
-            password
-        }
-    })
-}
+// 登陆
+export const reqLogin = (username, password) => ajax({
+    method: 'post',
+    url: BASEURL + '/login',
+    data: { username, password }
+})
 
-// 发送jsonp请求获取天气信息
+// 获取天气信息
 export const reqWeather = (city) => {
     return new Promise(
         (resolve, reject) => {
@@ -31,26 +19,44 @@ export const reqWeather = (city) => {
                 if (!err && data.error === 0) {
                     const { dayPictureUrl, weather } = data.results[0].weather_data[0]
                     resolve({ dayPictureUrl, weather })
-                } else {
-                    message.error('获取天气失败')
                 }
             })
         })
 }
 
+// 获取商品分页列表
+// pageNum-页码；pageSize-每页条数
+export const reqProducts = (pageNum, pageSize) => {
+    return ajax({
+        method: "get",
+        url: BASEURL + '/admin/products',
+        params: { pageNum, pageSize }
+    })
+}
 
-// 获取分类列表
-// export const reqCategories = () => ajax.get(BASEURL + '/manage/category/list')
-// export const reqCategories = () => ajax({
-//     method: 'GET', // get请求时，这个可以省略
-//     url: BASEURL + '/manage/category/list'
-// })
-export const reqCategories = () => ajax(BASEURL + '/manage/category/list')
+// 根据ID/Name搜索产品分页列表
+export const reqSearchProducts = ({ pageNum, pageSize, searchName, searchType }) => ajax({
+    method: 'get',
+    url: BASEURL + '/admin/products/search',
+    params: { pageNum, pageSize, [searchType]: searchName }
+})
 
+// 商品进行上架下架处理
+export const reqUpdateStatus = (productId, status) => ajax({
+    method: 'post',
+    url: BASEURL + '/admin/products/updateStatus',
+    data: { productId, status }
+})
 
-// 添加分类
-export const reqAddCategory = (categoryName) => ajax.post(BASEURL + '/manage/category/add', { categoryName })
+// 根据分类id获取类别
+export const reqCategory = (categoryId) => ajax({
+    method: 'get',
+    url: BASEURL + '/admin/category/info',
+    params: { categoryId }
+})
 
-// 更新分类
-export const reqUpdateCategory = ({ categoryId, categoryName }) => ajax.post(BASEURL + '/manage/category/update',
-    { categoryId, categoryName })
+// 获取所有分类的列表
+export const reqCategorys = () => ajax({
+    method: "get",
+    url: BASEURL + '/admin/category/lists'
+})

@@ -1,53 +1,138 @@
-import React, { useState } from 'react';
-import { Layout } from "antd";
+import React, { Component } from 'react';
 import { Redirect, Switch, Route } from 'react-router-dom';
-
-// import memoryUtils from '../../utils/memoryUtils';
-import LeftNav from "../../components/left-nav";
-import Header from "../../components/header";
+import { Link, withRouter } from 'react-router-dom'
+import storageUtils from '../../utils/storageUtils';
+import { Layout, Menu, Icon, Modal } from 'antd';
+import './admin.less';
+import LinkButton from '../../components/link-button';
+import { menuLists } from '../../config';
 
 import Home from '../admin-home/home';
-import Report from "../admin-stats/report";
-import Goods from "../admin-goods/goods";
-import Bug from "../admin-stats/Bug";
-import Category from "../admin-goods/category";
+import Products from '../admin-product/products';
+import ProductDetail from '../admin-product/detail'
+import AddUpdateProduct from '../admin-product/add_update'
 
-import storageUtils from '../../utils/storageUtils'
 
-const { Content, Sider } = Layout;
+const { SubMenu } = Menu;
+const { Header, Sider, Content } = Layout;
 
-function Admin(props) {
-    // const user = memoryUtils.user;
-    // if (user._id) {
-    //     return <Redirect to='/login' />
-    // }
+class Admin extends Component {
 
-    const [collapsed, setCollapsed] = useState(false);
-
-    if (!storageUtils.getUser().username) {
-        return <Redirect to='/' />
+    constructor(props) {
+        super(props);
+        this.state = {
+            // collapsed: false
+        }
+        this.menuNodes = this.getMenuNodes(menuLists)
     }
 
-    return (
-        <Layout >
-            <Header />
-            <Layout style={{ backgroundColor: "white" }}>
-                <Sider theme="light" collapsible collapsed={collapsed} onCollapse={(collapsed) => setCollapsed(collapsed)}><LeftNav /></Sider>
-                <Content >
-                    <Switch>
-                        <Route path='/admin/home' component={Home} />
-                        <Route path='/admin/category' component={Category} />
-                        <Route path='/admin/goods' component={Goods} />
-                        <Route path='/admin/bug' component={Bug} />
-                        <Route path='/admin/report' component={Report} />
-                        <Redirect to='/admin/home' />
-                    </Switch>
-                </Content>
+    logout = () => {
+        let that = this;
+        Modal.confirm({
+            title: '确认退出吗',
+            onOk() {
+                storageUtils.removeUser();
+                that.props.history.replace('/');
+            },
+            onCancel() { }
+        })
+    }
 
+    getMenuNodes = (menuLists) => {
+        const selectedKey = this.props.location.pathname;
+        return menuLists.map(item => {
+            if (!item.children) {
+                if (item.round) {
+                    return (
+                        <Menu.Item key={item.key}>
+                            <Link to={item.key} ><Icon type={item.icon} /><span>{item.title}</span></Link>
+                        </Menu.Item>
+                    )
+                } else {
+                    return (
+                        <Menu.Item key={item.key}>
+                            <Link to={item.key} ><span>{item.title}</span></Link>
+                        </Menu.Item>
+                    )
+                }
+            } else {
+                const cItem = item.children.find(cItem => cItem.key === selectedKey)
+                if (cItem) {
+                    this.openKey = item.key
+                }
+                return (
+                    <SubMenu
+                        key={item.key}
+                        title={
+                            <span>
+                                <Icon type={item.icon} />
+                                <span>{item.title}</span>
+                            </span>
+                        }>
+                        {
+                            this.getMenuNodes(item.children)
+                        }
+                    </SubMenu>
+                )
+            }
+        })
+    }
+
+    onCollapse = (collapsed) => { this.setState({ collapsed }) }
+
+
+    render() {
+        if (!storageUtils.getUser().username) { return <Redirect to='/' /> };
+        // const { collapsed } = this.state;
+        let selectedKey = this.props.location.pathname;
+        if (selectedKey.indexOf('/product') === 0) { selectedKey = '/product' }
+
+        return (
+            <Layout>
+                <Header className="header">
+                    <div className='header-left-wrap'>项目</div>
+                    <div className='header-content'></div>
+                    <div className='header-right'>
+                        <button className='avatar' size={30}>{storageUtils.getUser().username}</button>
+                        <LinkButton onClick={this.logout}>退出</LinkButton>
+                    </div>
+                </Header>
+                <Layout>
+                    <Sider
+                        className='sider'
+                        width={180}
+                        theme="light"
+                    // collapsible
+                    // collapsed={collapsed}
+                    // onCollapse={this.onCollapse}
+                    >
+                        <Menu
+                            mode='inline'
+                            theme='light'
+                            defaultOpenKeys={[this.openKey]}
+                            selectedKeys={[selectedKey]}
+                        >
+                            {
+                                this.menuNodes
+                            }
+                        </Menu>
+                    </Sider>
+                    <Layout >
+                        <Content className='content'>
+                            <Switch>
+                                <Route path='/admin/home' component={Home} />
+                                <Route path='/admin/products' component={Products} />
+                                <Route path='/admin/product/detail' component={ProductDetail} />
+                                <Route path='/admin/reproduct' component={AddUpdateProduct} />
+
+                                <Redirect to='/admin/home' />
+                            </Switch>
+                        </Content>
+                    </Layout>
+                </Layout>
             </Layout>
-        </Layout>
-
-    )
+        );
+    }
 }
 
-export default Admin;
+export default withRouter(Admin);

@@ -1,7 +1,3 @@
-/**
- * local数据
- */
-
 import store from 'store'
 
 // export default {

@@ -66,7 +66,6 @@ class RotationChart extends Component {
     render() {
         const { currentIndex, active, flag } = this.state;
         const { w, h, children } = this.props;
-        console.log(flag)
 
         return (
             <div className='rotation' style={{ width: w, height: h }}  onMouseEnter={this.changeFlagx.bind(this)} onMouseLeave={this.changeFlagy.bind(this)}>

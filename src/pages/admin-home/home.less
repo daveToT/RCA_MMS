@@ -1,47 +1,23 @@
 .home {
-
-    .home-header {
-        line-height: 40px;
-        height: 40px;
-        border-bottom: 1px solid rgba(102, 143, 218, 0.3);
-        padding: 0 10px;
-    }
-
-    .home-title {
-        position: relative;
-        line-height: 40px;
-        height: 40px;
-        width: 40px;
-    }
+    padding: 10px 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
 
     .home-date {
         height: 40px;
         line-height: 40px;
         font-size: 14px;
 
-        display: flex;
-        justify-content: flex-end;
-        align-items: center;
-        padding-right: 20px;
-
-        &::after {
-            position: absolute;
-            left: 230px;
-            transform: translateX(-50%);
-
-            content: "";
-            border-top: 20px solid rgba(102, 143, 218, 0.3);
-            border-right: 20px solid transparent;
-            border-bottom: 20px solid transparent;
-            border-left: 20px solid transparent;
-        }
-
-
         img {
             height: 20px;
             width: 30px;
             margin: 0 10px;
         }
+    }
 
+    .home-rotation{
+        margin-top: 50px;
     }
 }

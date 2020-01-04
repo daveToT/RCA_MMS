@@ -2,6 +2,11 @@ import React, { Component } from 'react';
 import "./home.less"
 import { formateDate } from '../../utils/date'
 import { reqWeather } from '../../api'
+import RotationChart from '../../components/rotation-chart'
+import p1 from '../../assets/rotation/1.png';
+import p2 from '../../assets/rotation/2.png';
+import p3 from '../../assets/rotation/3.png';
+const images = [p1, p2, p3]
 
 class Home extends Component {
     constructor(props) {
@@ -15,7 +20,7 @@ class Home extends Component {
 
     componentDidMount() {
         this.interValID = setInterval(() => {
-            this.setState({ currentTime: formateDate(Date.now()) })
+            this.setState({ currentTime: formateDate(Date.now()) });
         }, 1000);
 
         this.getWeather()
@@ -24,22 +29,22 @@ class Home extends Component {
     componentWillUnmount() {
         clearInterval(this.interValID)
     }
+
     getWeather = async () => {
         const { dayPictureUrl, weather } = await reqWeather('苏州')
         this.setState({
             dayPictureUrl, weather
         })
     }
+
     changeShow = show => {
         this.setState({ show })
     }
+
     render() {
         const { currentTime, dayPictureUrl, weather } = this.state
         return (
             <div className='home'>
-                <div className='home-header'>
-                    <div className='home-title'>Home</div>
-                </div>
                 <div className='home-date'>
                     <span>{currentTime}</span>&nbsp;&nbsp;
                     <span>苏州</span>
@@ -47,13 +52,10 @@ class Home extends Component {
                     <span>{weather}</span>
                 </div>
 
-                <div 
-                    style={{width: 300, height: 300, border: '1px solid #000'}}
-                    onMouseEnter={() => this.changeShow(true)}
-                    onMouseLeave={() => this.changeShow(false)}>
-                    {
-                        this.state.show && <div>show</div>
-                    }
+                <div className='home-rotation'>
+                    <RotationChart w={300} h={100}>
+                        {images.map((image, index) => <img src={image} alt="" key={index} />)}
+                    </RotationChart>
                 </div>
             </div>
         );
