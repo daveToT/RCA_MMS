@@ -1,0 +1,57 @@
+.draggableBox {
+    position: relative;
+    border: 1px solid #1593ff;
+}
+
+.draggableBoxControl {
+    position: absolute;
+    width: 10px;
+    height: 10px;
+    border-radius: 100%;
+    background: #fff;
+    border: 1px solid #1593ff;
+}
+
+.draggableBoxLeft {
+    position: absolute;
+    top: 50%;
+    left: -5px;
+    transform: translateY(-50%);
+}
+
+.draggableBoxLeft:hover {
+    cursor: w-resize;
+}
+
+.draggableBoxTop {
+    position: absolute;
+    top: -5px;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.draggableBoxTop:hover {
+    cursor: n-resize;
+}
+
+.draggableBoxRight {
+    position: absolute;
+    top: 50%;
+    right: -5px;
+    transform: translateY(-50%);
+}
+
+.draggableBoxRight:hover {
+    cursor: e-resize;
+}
+
+.draggableBoxBottom {
+    position: absolute;
+    left: 50%;
+    bottom: -5px;
+    transform: translateX(-50%);
+}
+
+.draggableBoxBottom:hover {
+    cursor: s-resize;
+}

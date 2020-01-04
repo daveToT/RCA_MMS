@@ -1,0 +1,63 @@
+.root {
+    position: relative;
+    height: calc(100vh - 50px);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: #eee;
+    overflow: hidden;
+}
+
+.tools {
+    position: absolute;
+    top: 0;
+    width: 100%;
+    display: flex;
+    background: #fff;
+    justify-content: center;
+}
+
+.tool {
+    width: 40px;
+    height: 40px;
+    line-height: 40px;
+    text-align: center;
+    cursor: pointer;
+}
+
+.tool:hover {
+    background: #1593ff;
+    color: #fff;
+}
+
+.mobile {
+    position: relative;
+    width: 320px;
+    height: 486px;
+    background: #fff;
+    border: 4px solid #e0e0e0;
+}
+
+.mobile::before {
+    content: "";
+    position: absolute;
+    top: -40px;
+    left: -4px;
+    height: 36px;
+    width: 320px;
+    border-top-left-radius: 30px;
+    border-top-right-radius: 30px;
+    background: #e0e0e0;
+}
+
+.mobile::after {
+    content: "";
+    position: absolute;
+    bottom: -40px;
+    left: -4px;
+    height: 36px;
+    width: 320px;
+    border-bottom-left-radius: 30px;
+    border-bottom-right-radius: 30px;
+    background: #e0e0e0;
+}

@@ -8,7 +8,7 @@ function App() {
     <Router>
       <Switch>
         <Route path='/' exact component={WrappedLogin} />
-        <Route path='/admin' component={Admin} />
+        <Route path={['/admin', '/gen-page']} component={Admin} />
       </Switch>
     </Router>
   );

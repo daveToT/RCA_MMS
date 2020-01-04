@@ -11,5 +11,12 @@ export const menuLists = [
         children: [
             { title: "waiting", key: '/admin/product-chart' }
         ]
+    },
+    {
+        title: '生成页面', key: '/gen-page', icon: 'line-chart', round: '1',
+        children: [
+            { title: '手机端', key: '/gen-page/mobile' },
+            { title: 'PC端', key: '/gen-page/pc' }
+        ]
     }
 ]

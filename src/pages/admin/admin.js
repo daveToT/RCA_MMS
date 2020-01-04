@@ -9,8 +9,8 @@ import { menuLists } from '../../config';
 
 import Home from '../admin-home/home';
 import Products from '../admin-product/products';
-import ProductDetail from '../admin-product/detail'
-import AddUpdateProduct from '../admin-product/add_update'
+import ProductDetail from '../admin-product/detail';
+import AddUpdateProduct from '../admin-product/add_update';
 
 
 const { SubMenu } = Menu;
