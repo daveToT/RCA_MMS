@@ -2,7 +2,8 @@ import React, { Component } from 'react';
 import { Card, Select, Button, Icon, Input, Table, message } from 'antd';
 import { reqProducts, reqSearchProducts, reqUpdateStatus } from '../../api';
 import LinkButton from '../../components/link-button';
-import memoryUtils from '../../utils/memoryUtils'
+import memoryUtils from '../../utils/memoryUtils';
+import {throttle} from 'lodash';
 const Option = Select.Option;
 
 class Products extends Component {
@@ -75,7 +76,7 @@ class Products extends Component {
         this.pageNum = pageNum;
         const { searchName, searchType } = this.state;
 
-        if (!searchName) {
+        if (!this.isSearch) {
             result = await reqProducts(pageNum, 8)
         } else {
             result = await reqSearchProducts({ pageNum, pageSize: 8, searchName, searchType })
@@ -87,14 +88,14 @@ class Products extends Component {
         }
     }
 
-    updateStatus = async (productId, status) => {
+    updateStatus = throttle(async (productId, status) => {
         status = status === 1 ? 2 : 1;
         const result = await reqUpdateStatus(productId, status);
         if (result.code === 0) {
             this.getProducts(this.pageNum)
             message.success("更新成功")
         }
-    }
+    }, 2000)
 
     componentDidMount() {
         this.getProducts(1)
@@ -109,7 +110,11 @@ class Products extends Component {
                     <Option value='productDesc'>按描述搜索</Option>
                 </Select>
                 <Input style={{ width: 200, margin: '0 10px' }} onChange={(e) => this.setState({ searchName: e.target.value })} />
-                <Button type='primary' onClick={() => this.getProducts(1)}>搜索</Button>
+                <Button type='primary' onClick={() => {
+                    this.isSearch = true;
+                    this.getProducts(1)
+                }
+                } >搜索</Button>
             </span>
         )
 

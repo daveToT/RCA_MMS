@@ -20,3 +20,5 @@ export const menuLists = [
         ]
     }
 ]
+
+export const BASE_IMG = 'http://localhost:3000/upload';

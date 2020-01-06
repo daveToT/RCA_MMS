@@ -99,3 +99,6 @@ data4 = Mock.mock({
 });
 // 获取商品类别列表
 Mock.mock('/admin/category/lists', 'get', data4)
+
+// 删除图片
+Mock.mock('/admin/img/delete', 'post', { "status": 0 })

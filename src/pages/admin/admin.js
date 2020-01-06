@@ -11,6 +11,7 @@ import Home from '../admin-home/home';
 import Products from '../admin-product/products';
 import ProductDetail from '../admin-product/detail';
 import AddUpdateProduct from '../admin-product/add_update';
+import GenPageWithMobile from '../gen-page/mobile'
 
 
 const { SubMenu } = Menu;
@@ -124,7 +125,7 @@ class Admin extends Component {
                                 <Route path='/admin/products' component={Products} />
                                 <Route path='/admin/product/detail' component={ProductDetail} />
                                 <Route path='/admin/reproduct' component={AddUpdateProduct} />
-
+                                <Route path='/gen-page/mobile' component={GenPageWithMobile} />
                                 <Redirect to='/admin/home' />
                             </Switch>
                         </Content>

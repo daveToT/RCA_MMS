@@ -60,3 +60,10 @@ export const reqCategorys = () => ajax({
     method: "get",
     url: BASEURL + '/admin/category/lists'
 })
+
+// 删除图片
+export const reqDeleteImg = (name) => ajax({
+    method: 'post',
+    url: BASEURL + '/admin/img/delete',
+    data: { name }
+})

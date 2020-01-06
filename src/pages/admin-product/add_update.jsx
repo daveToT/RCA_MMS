@@ -3,6 +3,7 @@ import { Card, Icon, Form, Input, Select, Button } from "antd";
 import { reqCategorys } from '../../api';
 import memoryUtils from '../../utils/memoryUtils'
 import PicturesWall from './picture_wall';
+import RichTextEditor from './rich-text-editor'
 
 class AddUpdateProduct extends Component {
     constructor(props) {
@@ -11,7 +12,8 @@ class AddUpdateProduct extends Component {
             categorys: []
         };
         this.product = memoryUtils.product;
-        this.isUpdate = !!this.product._id
+        this.isUpdate = !!this.product._id;
+        this.pwRef = React.createRef();
     }
 
     getCategorys = async () => {
@@ -31,6 +33,7 @@ class AddUpdateProduct extends Component {
         this.props.form.validateFields(async (err, values) => {
             if (!err) {
                 const { name, desc, price, categoryId } = values;
+                const images = this.pwRef.current.getImgs();
             }
         })
     }
@@ -101,14 +104,10 @@ class AddUpdateProduct extends Component {
                         }
                     </Form.Item>
                     <Form.Item label="商品图片">
-                        <div>
-                            <PicturesWall />
-                        </div>
+                        <PicturesWall ref={this.pwRef} imgs={product.imgs} />
                     </Form.Item>
                     <Form.Item label="商品详情">
-                        <div>
-                            商品详情组件
-                        </div>
+                        <RichTextEditor />
                     </Form.Item>
                     <Form.Item>
                         <Button type="primary" htmlType="submit">提交</Button>
