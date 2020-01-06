@@ -1,9 +1,9 @@
-<font face="Source Code Pro" color=#0099ff size=8>admin-client</font>
+<!-- <font face="Source Code Pro" color=#0099ff size=8>admin-client</font>
 
 ### 🚀 技术栈 🚀  
 
-[![webpack](https://img.shields.io/badge/webpack-4.41.2-green)](https://github.com/webpack/webpack) [![react](https://img.shields.io/badge/react-16.12.0-green)](https://github.com/facebook/react) [![react-router](https://img.shields.io/badge/react--router-5.1.2-green)](https://github.com/ReactTraining/react-router) [![axios](https://img.shields.io/badge/axios-0.19.0-green)](https://github.com/axios/axios) [![ant-design](https://img.shields.io/badge/ant--design-3.26.2-green.svg)](https://ant.design/index-cn) [![mobx](https://img.shields.io/badge/mobx-5.15.0-green.svg)](https://github.com/mobxjs/mobx)
-![license](https://img.shields.io/badge/license-MIT-brightgreen.svg)
+[![webpack](https://img.shields.io/badge/webpack-4.41.2-green)](https://github.com/webpack/webpack) [![react](https://img.shields.io/badge/react-16.12.0-green)](https://github.com/facebook/react) [![react-router](https://img.shields.io/badge/react--router-5.1.2-green)](https://github.com/ReactTraining/react-router) [![axios](https://img.shields.io/badge/axios-0.19.0-green)](https://github.com/axios/axios) [![ant-design](https://img.shields.io/badge/ant--design-3.26.2-green.svg)](https://ant.design/index-cn)
+[![license](https://img.shields.io/badge/license-MIT-brightgreen.svg)]()
 
 ### 具体说明
 - 使用 Webpack4.0 构建项目（不使用 create-react-app、umi 等脚手架）；
@@ -69,4 +69,4 @@ yarn build  //生产环境 打包构建
 yarn build:report // 图形化分析打包文件大小；
 
 yarn build:watch // 方便排查生产环境打包后文件的错误信息（文件source map）；
-```
+``` -->
