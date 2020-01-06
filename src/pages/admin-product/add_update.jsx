@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import { Card, Icon, Form, Input, Select, Button } from "antd";
-import { reqCategorys } from '../../api';
+import { Card, Icon, Form, Input, Select, Button, message } from "antd";
+import { reqCategorys, reqAddorUpdateProduct } from '../../api';
 import memoryUtils from '../../utils/memoryUtils'
 import PicturesWall from './picture_wall';
 import RichTextEditor from './rich-text-editor'
@@ -14,6 +14,7 @@ class AddUpdateProduct extends Component {
         this.product = memoryUtils.product;
         this.isUpdate = !!this.product._id;
         this.pwRef = React.createRef();
+        this.editorRef = React.createRef();
     }
 
     getCategorys = async () => {
@@ -34,6 +35,17 @@ class AddUpdateProduct extends Component {
             if (!err) {
                 const { name, desc, price, categoryId } = values;
                 const images = this.pwRef.current.getImgs();
+                const detail = this.editorRef.current.getDetail();
+
+                const product = { name, desc, price, categoryId, images, detail }
+                if (this.isUpdate) { product._id = this.product._id }
+                const result = await reqAddorUpdateProduct(product);
+                if (result.status === 0) {
+                    message.success(`${this.isUpdate ? '修改' : '添加'}成功`)
+                    this.props.history.replace('/product')
+                } else {
+                    message.error(result.msg)
+                }
             }
         })
     }
@@ -106,8 +118,8 @@ class AddUpdateProduct extends Component {
                     <Form.Item label="商品图片">
                         <PicturesWall ref={this.pwRef} imgs={product.imgs} />
                     </Form.Item>
-                    <Form.Item label="商品详情">
-                        <RichTextEditor />
+                    <Form.Item label="商品详情" wrapperCol={{ span: 20 }}>
+                        <RichTextEditor detail={product.detail} ref={this.editorRef} />
                     </Form.Item>
                     <Form.Item>
                         <Button type="primary" htmlType="submit">提交</Button>

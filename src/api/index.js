@@ -67,3 +67,19 @@ export const reqDeleteImg = (name) => ajax({
     url: BASEURL + '/admin/img/delete',
     data: { name }
 })
+
+/**
+ * 上传图片
+ * response：
+ * {
+ *      "status":0,
+ *      "data":{"name":"image-xxxx.jpg","url":"http://localhost:xxx/upload/image-xxxx.jpg"}
+ * }
+ */
+
+//  添加/修改商品
+export const reqAddorUpdateProduct = (product) => ajax({
+    method: "post",
+    url: BASEURL + "/admin/product/" + (product._id ? 'update' : 'add'),
+    data: product
+})
