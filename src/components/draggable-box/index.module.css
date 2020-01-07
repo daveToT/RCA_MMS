@@ -3,6 +3,24 @@
     border: 1px solid #1593ff;
 }
 
+.draggableBoxRotate {
+    position: absolute;
+    top: -40px;
+    left: 50%;
+    transform: translateX(-50%);
+    color: #1593ff;
+    background: #fff;
+    cursor: url(../../assets/mouserotate.ico) 10 10, default;
+    width: 20px;
+    height: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 100%;
+    box-shadow: 0 0 2px 0 rgba(61, 73, 92, .2);
+    border: 1px solid #ccd5db;
+}
+
 .draggableBoxControl {
     position: absolute;
     width: 10px;
