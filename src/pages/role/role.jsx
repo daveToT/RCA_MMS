@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
-import { Card, Button, Table, Modal } from 'antd';
+import { Card, Button, Table, Modal, message } from 'antd';
 import LinkButton from '../../components/link-button';
 import { formateDate } from '../../utils/date';
 import { reqRoles, reqAddRole } from '../../api';
 import AddForm from './add-role';
+import AuthForm from './auth-form';
 
 
 class Role extends Component {
@@ -11,10 +12,12 @@ class Role extends Component {
         super(props);
         this.state = {
             roles: [],
-            isShowAdd: false
+            isShowAdd: false,
+            isShowAuth: false
         }
         this.initialColumn()
         this.roleRef = React.createRef()
+        this.authRef = React.createRef()
     }
 
     initialColumn = () => {
@@ -23,7 +26,7 @@ class Role extends Component {
             { title: '创建时间', dataIndex: "create_time", render: formateDate },
             { title: '授权时间', dataIndex: "auth_time", render: formateDate },
             { title: '授权人', dataIndex: "auth_name" },
-            { title: '操作', render: (role) => <LinkButton onClick={() => this.isShowAuth(role)}>设置权限</LinkButton> }
+            { title: '操作', render: (role) => <LinkButton onClick={() => this.setState({ isShowAuth: true })}>设置权限</LinkButton> }
         ]
     }
 
@@ -35,20 +38,20 @@ class Role extends Component {
         }
     }
 
-    addRole = (role) => {
-        // reqAddRole
-    }
-
-    handleOk = () => {
-        FIXME:"Ref获取子组件数据失败"
-        console.log(this.roleRef.current.handleSubmit)
-        this.addRole()
+    handleOk = async () => {
+        if (this.roleRef && this.roleRef.current) {
+            const roleName = this.roleRef.current.getForm().getFieldsValue().roleName;
+            this.setState({ isShowAdd: false })
+            const result = await reqAddRole(roleName)
+            if (result.status === 0) { message.success('添加成功'); this.getRoles() } else { message.error(result.msg) }
+        }
     }
 
     componentDidMount() { this.getRoles() }
 
     render() {
-        const { roles, isShowAdd } = this.state;
+        const { roles, isShowAdd, isShowAuth } = this.state;
+        const role = this.role || {}
         const title = (
             <div>
                 <Button onClick={() => this.setState({ isShowAdd: true })} >创建角色</Button>
@@ -71,6 +74,15 @@ class Role extends Component {
                     rowKey="_id"
                     pagination={{ defaultPageSize: 6, showQuickJumper: true }}
                 />
+                <Modal
+                    title='设置角色权限'
+                    visible={isShowAuth}
+                    onOk={this.updateRole}
+                    onCancel={() => { this.setState({ isShowAuth: false }) }}
+                >
+                    <AuthForm ref={this.authRef} role={role} />
+                </Modal>
+
             </Card>
         );
     }

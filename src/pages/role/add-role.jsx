@@ -13,13 +13,7 @@ class AddForm extends Component {
 
     handleSubmit = (event) => {
         event.preventDefault();
-        this.props.form.validateFields((err, values) => {
-            if (!err) {
-                return this.state.value
-            }
-        })
     }
-
 
     render() {
         const { getFieldDecorator } = this.props.form;
@@ -27,7 +21,7 @@ class AddForm extends Component {
             <Form onSubmit={this.handleSubmit}>
                 <Form.Item label="角色名称">
                     {
-                        getFieldDecorator('add', {
+                        getFieldDecorator('roleName', {
                             rules: [{ required: true, message: 'Please input your role!' }]
                         })(<Input onChange={this.handleChange} />)
                     }

@@ -1,7 +1,6 @@
 const Mock = require('mockjs');
 
-let data1;
-data1 = Mock.mock({
+let data1 = Mock.mock({
     "status": 0,
     "data|15": [{
         "menus|3": ["/admin/home", "/goods", "/admin/role", "/gen-page"],
@@ -16,3 +15,10 @@ data1 = Mock.mock({
 
 // 获取角色列表
 Mock.mock('/role/list', 'get', data1)
+
+let data2 = Mock.mock({
+    "status": 0,
+    "msg": "message"
+});
+// 添加角色
+Mock.mock('/role/add', 'post', data2)
