@@ -83,3 +83,43 @@ export const reqAddorUpdateProduct = (product) => ajax({
     url: BASEURL + "/admin/product/" + (product._id ? 'update' : 'add'),
     data: product
 })
+
+// 获取所有角色列表
+export const reqRoles = () => ajax({
+    method: 'get',
+    url: '/role/list'
+})
+
+// 添加角色
+export const reqAddRole = (roleName) => ajax({
+    method: 'post',
+    url: '/role/add',
+    data: { roleName }
+})
+
+// 更新角色
+export const reqUpdateRole = (role) => ajax({
+    method: 'post',
+    url: '/role/update',
+    params: { role }
+})
+
+// 获取所有用户列表
+export const reqUsers = () => ajax({
+    method: 'get',
+    url: '/user/list'
+})
+
+// 删除指定用户
+export const reqDeleteUser = (userId) => ajax({
+    method: 'post',
+    url: '/user/delete',
+    data: { userId }
+})
+
+// 添加/更新用户
+export const reqAddOrUpdateUser = (user) => ajax({
+    method: 'get',
+    url: '/user/' + (user._id ? 'update' : "add"),
+    data: {user}
+})
