@@ -2,9 +2,10 @@ import React, { Component } from 'react';
 import { Card, Button, Table, Modal, message } from 'antd';
 import LinkButton from '../../components/link-button';
 import { formateDate } from '../../utils/date';
-import { reqRoles, reqAddRole } from '../../api';
+import { reqRoles, reqAddRole, reqUpdateRole } from '../../api';
 import AddForm from './add-role';
 import AuthForm from './auth-form';
+import memoryUtils from '../../utils/memoryUtils'
 
 
 class Role extends Component {
@@ -36,6 +37,26 @@ class Role extends Component {
             const roles = result.data
             this.setState({ roles })
         }
+    }
+
+    updateRole = async () => {
+        this.setState({ isShowAuth: false })
+        const { role } = this
+        if (this.authRef && this.authRef.current) {
+            console.log(this.authRef.current.getMenus())
+            role.menus = this.authRef.current.getMenus()
+            role.auth_time = Date.now()
+            role.auth_name = memoryUtils.user.username
+            console.log(memoryUtils.user.username)
+            const result = await reqUpdateRole(role)
+            if (result.status === 0) {
+                message.success('角色权限修改成功')
+                this.getRoles()
+            } else {
+                message.error(result.msg)
+            }
+        }
+
     }
 
     handleOk = async () => {
@@ -84,6 +105,7 @@ class Role extends Component {
                     visible={isShowAuth}
                     onOk={this.updateRole}
                     onCancel={() => { this.setState({ isShowAuth: false }) }}
+                    destroyOnClose
                 >
                     <AuthForm ref={this.authRef} role={role} />
                 </Modal>

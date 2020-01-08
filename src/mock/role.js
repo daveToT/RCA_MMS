@@ -12,13 +12,16 @@ let data1 = Mock.mock({
     }]
 });
 
-
-// 获取角色列表
-Mock.mock('/role/list', 'get', data1)
-
 let data2 = Mock.mock({
     "status": 0,
     "msg": "message"
 });
+
+// 获取角色列表
+Mock.mock('/role/list', 'get', data1)
+
 // 添加角色
 Mock.mock('/role/add', 'post', data2)
+
+// 更新角色
+Mock.mock('/role/update', 'post', data1)

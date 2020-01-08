@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component } from 'react'
 import { menuLists } from '../../config'
 import { Tree, Form, Input } from 'antd'
 import PropTypes from 'prop-types'
@@ -10,6 +10,7 @@ export default class AuthForm extends Component {
     static propTypes = {
         role: PropTypes.object
     }
+
     constructor(props) {
         super(props)
         this.state = {
@@ -17,6 +18,8 @@ export default class AuthForm extends Component {
         }
         this.treeNodes = this.getNodes(menuLists)
     }
+
+    getMenus = () => this.state.checkedKeys
 
     getNodes = (lists) => {
         return lists.map(item => {
