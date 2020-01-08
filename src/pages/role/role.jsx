@@ -26,7 +26,7 @@ class Role extends Component {
             { title: '创建时间', dataIndex: "create_time", render: formateDate },
             { title: '授权时间', dataIndex: "auth_time", render: formateDate },
             { title: '授权人', dataIndex: "auth_name" },
-            { title: '操作', render: (role) => <LinkButton onClick={() => this.setState({ isShowAuth: true })}>设置权限</LinkButton> }
+            { title: '操作', render: (role) => <LinkButton onClick={() => this.showAuth(role)}>设置权限</LinkButton> }
         ]
     }
 
@@ -45,6 +45,11 @@ class Role extends Component {
             const result = await reqAddRole(roleName)
             if (result.status === 0) { message.success('添加成功'); this.getRoles() } else { message.error(result.msg) }
         }
+    }
+
+    showAuth = (role) => {
+        this.role = role
+        this.setState({ isShowAuth: true })
     }
 
     componentDidMount() { this.getRoles() }

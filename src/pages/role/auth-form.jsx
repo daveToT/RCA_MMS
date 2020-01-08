@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import menuLists from '../../config'
+import { menuLists } from '../../config'
 import { Tree, Form, Input } from 'antd'
 import PropTypes from 'prop-types'
 
@@ -12,7 +12,20 @@ export default class AuthForm extends Component {
     }
     constructor(props) {
         super(props)
-        this.state = {}
+        this.state = {
+            checkedKeys: this.props.role.menus || []
+        }
+        this.treeNodes = this.getNodes(menuLists)
+    }
+
+    getNodes = (lists) => {
+        return lists.map(item => {
+            return (
+                <TreeNode key={item.key} title={item.title}>
+                    {item.children ? this.getNodes(item.children) : null}
+                </TreeNode>
+            )
+        })
     }
 
     render() {
@@ -21,13 +34,26 @@ export default class AuthForm extends Component {
             labelCol: { span: 4 },
             wrapperCol: { span: 15 }
         }
+        const { checkedKeys } = this.state
 
         return (
             <div>
                 <Item label='角色名称' {...formItemLayout}>
                     <Input value={role.name} disabled />
                 </Item>
-            </div>
+                <Tree
+                    checkable
+                    defaultExpandAll
+                    checkedKeys={checkedKeys}
+                    onCheck={(checkedKeys) => this.setState({ checkedKeys })}
+                >
+                    <TreeNode title="权限" key="all">
+                        {
+                            this.treeNodes
+                        }
+                    </TreeNode>
+                </Tree>
+            </div >
         )
     }
 }
