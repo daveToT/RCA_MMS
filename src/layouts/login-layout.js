@@ -4,7 +4,7 @@ import { Form, Icon, Input, Button, message } from 'antd';
 import logo from '../../assets/logo.png'
 import './login.less'
 import { reqLogin } from '../../api'
-import storageUtils from '../../utils/storageUtils'
+import storageUtils from '../utils/storageUtils'
 
 function Login(props) {
     if (storageUtils.getUser().username) {

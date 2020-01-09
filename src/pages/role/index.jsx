@@ -10,7 +10,7 @@ import memoryUtils from '../../utils/memoryUtils'
 
 class Role extends Component {
     constructor(props) {
-        super(props);
+        super(props)
         this.state = {
             roles: [],
             isShowAdd: false,

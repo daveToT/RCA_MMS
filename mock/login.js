@@ -1,6 +1,6 @@
 const Mock = require('mockjs');
 
-Mock.mock('/login', ({ body }) => {
+Mock.mock('/login', 'post', ({ body }) => {
     const params = JSON.parse(body);
     if (params.username === 'admin' && params.password === '123456') {
         return {
@@ -17,5 +17,3 @@ Mock.mock('/login', ({ body }) => {
         }
     }
 })
-
-Mock.setup()
