@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
-import "./home.less"
+import "./index.less"
 import { formateDate } from '../../utils/date'
-import { reqWeather } from '../../api'
+import { reqWeather } from '../../services'
 import RotationChart from '../../components/rotation-chart'
 import p1 from '../../assets/rotation/1.png';
 import p2 from '../../assets/rotation/2.png';

@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Card, Button, Table, Modal, message } from 'antd';
 import LinkButton from '../../components/link-button';
 import { formateDate } from '../../utils/date';
-import { reqRoles, reqAddRole, reqUpdateRole } from '../../api';
+import { reqRoles, reqAddRole, reqUpdateRole } from  '../../services';
 import AddForm from './add-role';
 import AuthForm from './auth-form';
 import memoryUtils from '../../utils/memoryUtils'

@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { menuLists } from '../../config'
+import { menuLists } from '../../routers'
 import { Tree, Form, Input } from 'antd'
 import PropTypes from 'prop-types'
 

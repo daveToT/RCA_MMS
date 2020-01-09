@@ -1,9 +1,9 @@
-import React, { Component } from 'react';
-import { Card, Select, Button, Icon, Input, Table, message } from 'antd';
-import { reqProducts, reqSearchProducts, reqUpdateStatus } from '../../api';
-import LinkButton from '../../components/link-button';
-import memoryUtils from '../../utils/memoryUtils';
-import {throttle} from 'lodash';
+import React, { Component } from 'react'
+import { Card, Select, Button, Icon, Input, Table, message } from 'antd'
+import { reqProducts, reqSearchProducts, reqUpdateStatus } from '../../services'
+import LinkButton from '../../components/link-button'
+import memoryUtils from '../../utils/memoryUtils'
+import {throttle} from 'lodash'
 const Option = Select.Option;
 
 class Products extends Component {

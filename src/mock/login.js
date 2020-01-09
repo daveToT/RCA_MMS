@@ -2,7 +2,7 @@ const Mock = require('mockjs');
 
 Mock.mock('/login', 'post', ({ body }) => {
     const params = JSON.parse(body);
-    if (params.username === 'admin' && params.password === '123456') {
+    if (params.username === 'admin' && params.password === 'admin') {
         return {
             code: 0,
             msg: '登录成功',

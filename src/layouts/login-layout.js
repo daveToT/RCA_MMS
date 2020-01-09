@@ -1,9 +1,9 @@
-import React from 'react';
+import React from 'react'
 import { Redirect } from 'react-router-dom'
-import { Form, Icon, Input, Button, message } from 'antd';
-import logo from '../../assets/logo.png'
-import './login.less'
-import { reqLogin } from '../../api'
+import { Form, Icon, Input, Button, message } from 'antd'
+import logo from '../assets/logo.png'
+import './login-layout.less'
+import { reqLogin } from '../services'
 import storageUtils from '../utils/storageUtils'
 
 function Login(props) {
