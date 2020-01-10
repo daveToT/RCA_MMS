@@ -3,7 +3,7 @@ import "./index.less"
 import { formatDay } from '../../utils/date'
 import { reqWeather } from '../../services'
 import RotationChart from '../../components/rotation-chart'
-import ClockBox from '../../components/clock-box'
+// import ClockBox from '../../components/clock-box'
 import p1 from '../../assets/rotation/1.png';
 import p2 from '../../assets/rotation/2.png';
 import p3 from '../../assets/rotation/3.png';
@@ -59,7 +59,7 @@ class Home extends Component {
                     </RotationChart>
                 </div>
 
-                <ClockBox />
+                {/* <ClockBox /> */}
             </div>
         );
     }

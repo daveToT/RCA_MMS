@@ -2,14 +2,14 @@ import React, { Component } from 'react';
 import LinkButton from '../../components/link-button';
 import { formatDate } from '../../utils/date';
 import { Card, Button, Table, Modal } from 'antd';
-import { reqUsers, reqDeleteUser, reqAddOrUpdateUser } from '../../services'
-import AddUser from './add-user'
+import { reqUsers } from '../../services'
+import AddUpdateUser from './add-update-user'
 
 class User extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            isShowAdd: false,
+            ishow: false,
             users: [],
             roles: []
         }
@@ -29,16 +29,33 @@ class User extends Component {
             {
                 title: '操作', render: (user) => (
                     <span>
-                        <LinkButton>修改</LinkButton>
-                        <LinkButton>删除</LinkButton>
+                        <LinkButton onClick={() => this.showUpdate(user)}>修改</LinkButton>
+                        <LinkButton onClick={() => this.deleteUser(user)}>删除</LinkButton>
                     </span>
                 )
             }
         ]
     }
 
-    addUser = async () => {
+    showAdd = () => {
+        this.user = null
+        this.setState({ ishow: true })
+    }
 
+    showUpdate = (user) => {
+        this.user = user
+        this.setState({ ishow: true })
+    }
+
+    deleteUser = (user) => {
+        Modal.confirm({
+            title: `确认删除${user.username}吗？`,
+            onOk() { }
+        })
+    }
+
+    addOrupdateUser = async () => {
+        this.setState({ ishow: false })
     }
 
     getUsers = async () => {
@@ -53,16 +70,12 @@ class User extends Component {
         }
     }
 
-    showAdd = () => {
-        this.setState({ isShowAdd: true })
-    }
-
     componentDidMount() {
         this.getUsers()
     }
 
     render() {
-        const { isShowAdd, users, roles } = this.state;
+        const { ishow, users, roles } = this.state;
         const user = this.user || {}
         const title = (<Button type='primary' onClick={this.showAdd}>创建用户</Button>)
 
@@ -76,12 +89,12 @@ class User extends Component {
                     pagination={{ defaultPageSize: 4, showQuickJumper: true }}
                 />
                 <Modal
-                    title={user._id ? '修改用户' : '添加用户'}
-                    visible={isShowAdd}
-                    onCancel={() => this.setState({ isShowAdd: false })}
-                    onOk={this.addUser}
+                    title={user._id ? "修改用户" : "添加用户"}
+                    visible={ishow}
+                    onCancel={() => this.setState({ ishow: false })}
+                    onOk={this.addOrupdateUser}
                 >
-                    <AddUser roles={roles} />
+                    <AddUpdateUser roles={roles} user={user} />
                 </Modal>
             </Card>
         );

@@ -2,16 +2,23 @@ import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { Form, Input, Select } from 'antd'
 
-class AddUser extends Component {
+class AddUpdateUser extends Component {
     static propTypes = {
         roles: PropTypes.array.isRequired,
         user: PropTypes.object
-
     }
 
     constructor(props) {
         super(props);
-        this.state = {}
+        this.state = {
+            selectedItems: ""
+        }
+        this.props.form.resetFields()
+    }
+
+    handleChange = (value) => {
+        console.log(value)
+        this.setState({ selectedItems: value })
     }
 
     shouldComponentUpdate(nextProps, nextstate) {
@@ -20,9 +27,11 @@ class AddUser extends Component {
         }
         return false;
     }
+
     render() {
-        const { roles } = this.props
+        const { roles, user } = this.props
         const { getFieldDecorator } = this.props.form;
+        const { selectedItems } = this.state
         const formItemLayout = {
             labelCol: { span: 4 },
             wrapperCol: { span: 15 }
@@ -37,14 +46,18 @@ class AddUser extends Component {
                         })(<Input type='txt' placeholder='请输入用户名' />)
                     }
                 </Form.Item>
-                <Form.Item label="密码">
-                    {
-                        getFieldDecorator('password', {
-                            initialValue: "",
-                            rules: [{ required: true, message: '必须输入密码' }]
-                        })(<Input type='password' placeholder='请输入密码' />)
-                    }
-                </Form.Item>
+                {
+                    user._id ? null : (
+                        <Form.Item label="密码">
+                            {
+                                getFieldDecorator('password', {
+                                    initialValue: "",
+                                    rules: [{ required: true, message: '必须输入密码' }]
+                                })(<Input type='password' placeholder='请输入密码' />)
+                            }
+                        </Form.Item>
+                    )
+                }
                 <Form.Item label="手机号">
                     {
                         getFieldDecorator('phone', {
@@ -62,21 +75,17 @@ class AddUser extends Component {
                     }
                 </Form.Item>
                 <Form.Item label="角色">
-                    {
-                        getFieldDecorator('roles', {
-                            initialValue: "",
-                            rules: [{ required: true, message: '必须选择一种角色' }]
-                        })(<Select>
-                            {
-                                roles.map((item) => {
-                                    return <Select.Option key={item._id}>{item.name}</Select.Option>
-                                })}
-                        </Select>)
-                    }
+                    <Select onChange={this.handleChange} defaultValue={user.name && selectedItems} >
+                        {
+                            roles.map((item, index) => {
+                                return <Select.Option key={item._id} value={`${item.name}+${index}`} >{item.name}</Select.Option>
+                            })
+                        }
+                    </Select>
                 </Form.Item>
-            </Form>
+            </Form >
         )
     }
 }
 
-export default Form.create()(AddUser);
+export default Form.create()(AddUpdateUser);
