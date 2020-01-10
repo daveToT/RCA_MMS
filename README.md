@@ -7,7 +7,7 @@
 ### 📖 具体说明
 - 项目环境搭建配置：
     使用 Webpack 构建项目；
-    使用 Babel 配置转换 ES6、React、CSS—Module、Less等；
+    使用 Babel 配置转换 ES6、React、CSS-Module、Less等；
     （或者 直接使用 create-react-app、umi 等脚手架;）
 - 采用 React V16，采用函数化 Hooks 特性开发项目组件；
 - 采用 React-router-dom 工具 配置项目路由；

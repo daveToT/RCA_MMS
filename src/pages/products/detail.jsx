@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Redirect } from 'react-router-dom';
-import { reqCategory } from '../../api';
+import { reqCategory } from '../../services';
 import {
     Card,
     Icon,

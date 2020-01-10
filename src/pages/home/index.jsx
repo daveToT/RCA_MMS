@@ -1,8 +1,9 @@
-import React, { Component } from 'react';
+import React, { Component } from 'react'
 import "./index.less"
-import { formateDate } from '../../utils/date'
+import { formatDay } from '../../utils/date'
 import { reqWeather } from '../../services'
 import RotationChart from '../../components/rotation-chart'
+import ClockBox from '../../components/clock-box'
 import p1 from '../../assets/rotation/1.png';
 import p2 from '../../assets/rotation/2.png';
 import p3 from '../../assets/rotation/3.png';
@@ -12,7 +13,7 @@ class Home extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            currentTime: formateDate(Date.now()),
+            currentTime: formatDay(Date.now()),
             dayPictureUrl: '',
             weather: ''
         }
@@ -20,7 +21,7 @@ class Home extends Component {
 
     componentDidMount() {
         this.interValID = setInterval(() => {
-            this.setState({ currentTime: formateDate(Date.now()) });
+            this.setState({ currentTime: formatDay(Date.now()) });
         }, 1000);
 
         this.getWeather()
@@ -57,6 +58,8 @@ class Home extends Component {
                         {images.map((image, index) => <img src={image} alt="" key={index} />)}
                     </RotationChart>
                 </div>
+
+                <ClockBox />
             </div>
         );
     }

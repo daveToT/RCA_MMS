@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Card, Icon, Form, Input, Select, Button, message } from "antd";
-import { reqCategorys, reqAddorUpdateProduct } from '../../api';
+import { reqCategorys, reqAddorUpdateProduct } from '../../services';
 import memoryUtils from '../../utils/memoryUtils'
 import PicturesWall from './picture_wall';
 import RichTextEditor from './rich-text-editor'

@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Card, Button, Table, Modal, message } from 'antd';
 import LinkButton from '../../components/link-button';
-import { formateDate } from '../../utils/date';
+import { formatDate } from '../../utils/date';
 import { reqRoles, reqAddRole, reqUpdateRole } from  '../../services';
 import AddForm from './add-role';
 import AuthForm from './auth-form';
@@ -24,8 +24,8 @@ class Role extends Component {
     initialColumn = () => {
         this.columns = [
             { title: '角色名称', dataIndex: "name" },
-            { title: '创建时间', dataIndex: "create_time", render: formateDate },
-            { title: '授权时间', dataIndex: "auth_time", render: formateDate },
+            { title: '创建时间', dataIndex: "create_time", render: formatDate },
+            { title: '授权时间', dataIndex: "auth_time", render: formatDate },
             { title: '授权人', dataIndex: "auth_name" },
             { title: '操作', render: (role) => <LinkButton onClick={() => this.showAuth(role)}>设置权限</LinkButton> }
         ]

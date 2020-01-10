@@ -8,12 +8,12 @@ import LinkButton from '../components/link-button'
 import { menuLists } from '../routers'
 
 import Home from '../pages/home'
-// import Products from '../pages/admin-product/products'
-// import ProductDetail from '../pages/admin-product/detail'
-// import AddUpdateProduct from '../pages/admin-product/add_update'
-// import GenPageWithMobile from '../pages/gen-page/mobile'
-// import Role from '../pages/role'
-// import User from '../pages/user/user'
+import Products from '../pages/products/products'
+import ProductDetail from '../pages/products/detail'
+import AddUpdateProduct from '../pages/products/add_update'
+import GenPageWithMobile from '../pages/gen-page/mobile'
+import Role from '../pages/role/role'
+import User from '../pages/user/user'
 
 
 const { SubMenu } = Menu;
@@ -124,12 +124,12 @@ class Admin extends Component {
                         <Content className='content'>
                             <Switch>
                                 <Route path='/admin/home' component={Home} />
-                                {/* <Route path='/admin/products' component={Products} />
+                                <Route path='/admin/products' component={Products} />
                                 <Route path='/admin/product/detail' component={ProductDetail} />
                                 <Route path='/admin/reproduct' component={AddUpdateProduct} />
-                                <Route path='/gen-page/mobile' component={GenPageWithMobile} />
+                                <Route path='/admin/gen-page/mobile' component={GenPageWithMobile} />
                                 <Route path='/admin/user' component={User} />
-                                <Route path='/admin/role' component={Role} /> */}
+                                <Route path='/admin/role' component={Role} />
                                 <Redirect to='/admin/home' />
                             </Switch>
                         </Content>
