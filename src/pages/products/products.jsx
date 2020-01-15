@@ -59,7 +59,7 @@ class Products extends Component {
                     <span>
                         <LinkButton onClick={() => {
                             memoryUtils.product = product;
-                            this.props.history.push('/admin/product/detail')
+                            this.props.history.push('/admin/product/detail' + product._id)
                         }}>详情</LinkButton><br />
                         <LinkButton onClick={() => {
                             memoryUtils.product = product;

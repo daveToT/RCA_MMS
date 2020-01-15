@@ -15,6 +15,9 @@ import GenPageWithMobile from '../pages/gen-page/mobile'
 import Role from '../pages/role/role'
 import User from '../pages/user/user'
 
+import { connect } from 'react-redux'
+import { setHeaderTitle } from '../redux/actions'
+
 
 const { SubMenu } = Menu;
 const { Header, Sider, Content } = Layout;
@@ -45,16 +48,25 @@ class Admin extends Component {
         const selectedKey = this.props.location.pathname;
         return menuLists.map(item => {
             if (!item.children) {
+                if (item.key === selectedKey || selectedKey.indexOf(item) === 0) {
+                    this.props.setHeaderTitle(item.title)
+                }
                 if (item.round) {
                     return (
                         <Menu.Item key={item.key}>
-                            <Link to={item.key} ><Icon type={item.icon} /><span>{item.title}</span></Link>
+                            <Link
+                                to={item.key}
+                                onClick={() => this.props.setHeaderTitle(item.title)}
+                            ><Icon type={item.icon} /><span>{item.title}</span></Link>
                         </Menu.Item>
                     )
                 } else {
                     return (
                         <Menu.Item key={item.key}>
-                            <Link to={item.key} ><span>{item.title}</span></Link>
+                            <Link
+                                to={item.key}
+                                onClick={() => this.props.setHeaderTitle(item.title)}
+                            ><span>{item.title}</span></Link>
                         </Menu.Item>
                     )
                 }
@@ -94,7 +106,7 @@ class Admin extends Component {
             <Layout>
                 <Header className="header">
                     <div className='header-left-wrap'>项目</div>
-                    <div className='header-content'></div>
+                    <div className='header-content'>{this.props.headerTitle}</div>
                     <div className='header-right'>
                         <button className='avatar' size={30}>{storageUtils.getUser().username}</button>
                         <LinkButton onClick={this.logout}>退出</LinkButton>
@@ -125,7 +137,7 @@ class Admin extends Component {
                             <Switch>
                                 <Route path='/admin/home' component={Home} />
                                 <Route path='/admin/products' component={Products} />
-                                <Route path='/admin/product/detail' component={ProductDetail} />
+                                <Route path='/admin/product/detail:id' component={ProductDetail} />
                                 <Route path='/admin/reproduct' component={AddUpdateProduct} />
                                 <Route path='/admin/gen-page/mobile' component={GenPageWithMobile} />
                                 <Route path='/admin/user' component={User} />
@@ -140,4 +152,7 @@ class Admin extends Component {
     }
 }
 
-export default withRouter(Admin);
+export default connect(
+    state => ({ headerTitle: state.headerTitle }),
+    { setHeaderTitle }
+)(withRouter(Admin))

@@ -16,7 +16,8 @@ class ProductDetail extends Component {
     constructor(props) {
         super(props)
         this.state = {
-            categoryName: ''
+            categoryName: '',
+            product: memoryUtils.product || {}
         }
     }
 
@@ -32,11 +33,26 @@ class ProductDetail extends Component {
         if (product._id) {
             this.getCategory(product.categoryId)
         }
+        if (this.state.product._id) {
+            const id = this.props.match.params.id
+            console.log(id)
+            const product = {
+                "status": 1,
+                "imgs": ["xxxx.jpg"],
+                "_id": "5cdasdsa",
+                "name": "dasdas" + id,
+                "desc": "casdas",
+                "price": 5132,
+                "categoryId": 123213,
+                "detail": "dasdasd"
+            }
+            this.setState({ product })
+        }
     }
 
     render() {
-        const product = memoryUtils.product;
-        if (!product || !product._id) { return <Redirect to='/admin/products' /> }
+        const { product } = this.state;
+        // if (!product || !product._id) { return <Redirect to='/admin/products' /> }
 
         const title = (
             <span>
@@ -74,7 +90,7 @@ class ProductDetail extends Component {
                     <Item>
                         <span className='detail-left'>商品图片</span>
                         {
-                            product.imgs.map((img, index) => {
+                            product.imgs && product.imgs.map((img, index) => {
                                 return <img className="detail-img" src={img} alt="img" key={img + index} />
                             })
                         }
