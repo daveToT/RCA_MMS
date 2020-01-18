@@ -123,3 +123,9 @@ export const reqAddOrUpdateUser = (user) => ajax({
     url: '/user/' + (user._id ? 'update' : "add"),
     data: {user}
 })
+
+// 获取logs列表
+export const reqLogs = ()=> ajax({
+    method:'get',
+    url:'/admin/logs'
+})

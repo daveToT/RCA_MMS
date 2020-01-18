@@ -4,8 +4,9 @@ import { Link, withRouter } from 'react-router-dom'
 import storageUtils from '../utils/storageUtils'
 import { Layout, Menu, Icon, Modal } from 'antd'
 import './admin-layout.less';
-import LinkButton from '../components/link-button'
+// import LinkButton from '../components/link-button'
 import { menuLists } from '../routers'
+import LOGO from '../assets/guide.png'
 
 import Home from '../pages/home'
 import Products from '../pages/products/products'
@@ -14,6 +15,8 @@ import AddUpdateProduct from '../pages/products/add_update'
 import GenPageWithMobile from '../pages/gen-page/mobile'
 import Role from '../pages/role/role'
 import User from '../pages/user/user'
+import Charts from '../pages/charts/charts'
+import NotFound from '../pages/not-found/not-found'
 
 import { connect } from 'react-redux'
 import { setHeaderTitle } from '../redux/actions'
@@ -105,12 +108,15 @@ class Admin extends Component {
         return (
             <Layout>
                 <Header className="header">
-                    <div className='header-left-wrap'>项目</div>
+                    <div className='header-left-wrap'>
+                        <img src={LOGO} className="logo" alt='logo' />
+                        <span>React</span>
+                    </div>
                     <div className='header-content'>{this.props.headerTitle}</div>
-                    <div className='header-right'>
+                    {/* <div className='header-right'>
                         <button className='avatar' size={30}>{storageUtils.getUser().username}</button>
                         <LinkButton onClick={this.logout}>退出</LinkButton>
-                    </div>
+                    </div> */}
                 </Header>
                 <Layout>
                     <Sider
@@ -135,6 +141,7 @@ class Admin extends Component {
                     <Layout >
                         <Content className='content'>
                             <Switch>
+                                <Redirect exact from='/' to='/admin/home' />
                                 <Route path='/admin/home' component={Home} />
                                 <Route path='/admin/products' component={Products} />
                                 <Route path='/admin/product/detail:id' component={ProductDetail} />
@@ -142,7 +149,8 @@ class Admin extends Component {
                                 <Route path='/admin/gen-page/mobile' component={GenPageWithMobile} />
                                 <Route path='/admin/user' component={User} />
                                 <Route path='/admin/role' component={Role} />
-                                <Redirect to='/admin/home' />
+                                <Route path='/admin/eachrts' component={Charts} />
+                                <Route component={NotFound} />
                             </Switch>
                         </Content>
                     </Layout>
