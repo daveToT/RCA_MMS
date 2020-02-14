@@ -35,6 +35,7 @@ function Iters() {
             text: 'PROFIT',
         },
     ])
+
     const moveItem = useCallback(
         (dragIndex, hoverIndex) => {
             const dragCard = cards[dragIndex]
@@ -49,6 +50,7 @@ function Iters() {
         },
         [cards],
     )
+
     const renderCard = (card, index) => {
         return (
             <Item
@@ -64,9 +66,7 @@ function Iters() {
     return (
         <>
             <div className='iters-container'>
-
                 {cards.map((card, i) => renderCard(card, i))}
-
             </div>
         </>
     )

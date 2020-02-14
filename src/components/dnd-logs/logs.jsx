@@ -1,4 +1,4 @@
-import React, { useState, useEffect ,useCallback} from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { reqLogs } from '../../services'
 import Item from './item'
 import './logs.less'
@@ -18,27 +18,29 @@ function Logs() {
         fetchData();
     }, []);
 
-    const moveItem = useCallback((dragIndex, hoverIndex)=>{
+    const moveItem = useCallback((dragIndex, hoverIndex) => {
         const dragItem = logs[dragIndex]
-        setLogs(update(logs,{$splice:[
-            [dragIndex, 1],
-            [hoverIndex, 0, dragItem]]}))
-    },[logs])
+        setLogs(update(logs, {
+            $splice: [
+                [dragIndex, 1],
+                [hoverIndex, 0, dragItem]]
+        }))
+    }, [logs])
 
-    const renderItem = (item,index)=>{
-        return (<Item           
+    const renderItem = (item, index) => {
+        return (<Item
             key={item.code}
             index={index}
             code={item.code}
             name={item.name}
-            moveItem={moveItem} 
+            moveItem={moveItem}
         />)
     }
 
     return (
         <>
             <div className='logs-container'>
-            {logs.map((log, index) => renderItem(log, index))}
+                {logs.map((log, index) => renderItem(log, index))}
             </div>
         </>
     )
